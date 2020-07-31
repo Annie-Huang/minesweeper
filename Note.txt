@@ -6,4 +6,6 @@ https://github.com/Annie-Huang/minesweeper
 
 =====================================================
 
+C:\react\minesweeper>npm init -y
+
 
