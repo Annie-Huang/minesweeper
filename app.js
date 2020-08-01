@@ -20,11 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i=0; i<width*width; i++) {
       const square = document.createElement('div')
       square.setAttribute('id', i);
-      square.textContent = i.toString();
+      // square.textContent = i.toString();
       square.classList.add(shuffledArray[i])
       grid.appendChild(square);
 
       squares.push(square);
+
+      // normal click
+      square.addEventListener('click', (e) => {
+        click(square);
+      })
     }
 
     // add numbers
@@ -92,11 +97,29 @@ document.addEventListener('DOMContentLoaded', () => {
           total++;
 
         squares[i].setAttribute('data', total);
-        console.log(squares[i]);
+        // console.log(squares[i]);
       }
     }
 
   }
 
   createBoard();
+
+  // click on square actions
+  function click(square) {
+    if (square.classList.contains('bomb')) {
+      console.log('Game over');
+
+    } else {
+      let total = square.getAttribute('data');
+
+      // if you put total !== 0, then the 0 will show up if the total is equals to 0.
+      if (total != 0) {
+        square.classList.add('checked');
+        square.innerHTML = total;
+        return;
+      }
+      square.classList.add('checked');
+    }
+  }
 });
