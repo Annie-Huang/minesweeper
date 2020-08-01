@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for(let i=0; i<width*width; i++) {
       const square = document.createElement('div')
-      square.setAttribute('id', i);
-      // square.textContent = i.toString();
+      square.setAttribute('id', i.toString());
+      square.textContent = i.toString();
       square.classList.add(shuffledArray[i])
       grid.appendChild(square);
 
@@ -89,12 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // BOTTOM side is the bomb
         // if (i<89 && squares[i+width].classList.contains('bomb'))
         // I believe this is a bug, it need to compare that it's not the last row instead (i<90), otherwise if there is a bomb in the last item, it will not be detected.
-        if (i<squares.length-width && squares[i+width].classList.contains('bomb'))
+        // so it should be i<=89
+        if (i<=squares.length-width-1 && squares[i+width].classList.contains('bomb'))
           total++;
 
         // RIGHT BOTTOM side is the bomb (ignore if it is the right column)
         // if (i<88 && !isRightEdge && squares[i+1+width].classList.contains('bomb'))
-        if (i<squares.length-width-2 && !isRightEdge && squares[i+1+width].classList.contains('bomb'))
+        // I believe this is a bug, it should be i<=88
+        if (i<=squares.length-width-2 && !isRightEdge && squares[i+1+width].classList.contains('bomb'))
           total++;
 
         squares[i].setAttribute('data', total);
@@ -126,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
         square.innerHTML = total;
         return;
       }
+
+      // if the total is not 0, then we pass it to the recursive function of checkSquare.
       checkSquare(square, currentId);
     }
 
@@ -139,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // It's important to set Timeout as you want the recursion happens one after another.
     setTimeout(() => {
+
 
     }, 10);
   }
