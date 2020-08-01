@@ -18,17 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const shuffledArray = gameArray.sort(() => Math.random() - 0.5);
     // console.log(shuffledArray);
 
-    for(let i=0; i<width*width; i++) {
-      const square = document.createElement('div')
-      square.setAttribute('id', i.toString());
-      square.textContent = i.toString();
-      square.classList.add(shuffledArray[i])
+    for(let i = 0; i < width*width; i++) {
+      const square = document.createElement('div');
+      square.setAttribute('id', i);
+      // square.textContent = i.toString();
+      square.classList.add(shuffledArray[i]);
       grid.appendChild(square);
-
       squares.push(square);
 
-      // normal click
-      square.addEventListener('click', (e) => {
+      //normal click
+      square.addEventListener('click', function(e) {
         click(square);
       })
     }
@@ -113,14 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function click(square) {
     let currentId = square.id;
 
-    if (isGameOver) return;
-    if (square.classList.contains('checked') || square.classList.contains('flag')) return
+    if (isGameOver)
+      return;
+    if (square.classList && (square.classList.contains('checked') || square.classList.contains('flag')))
+      return;
 
-    if (square.classList.contains('bomb')) {
-      isGameOver = true;
+    if (square.classList && square.classList.contains('bomb')) {
+      // isGameOver = true;
       console.log('Game over');
 
     } else {
+      console.log('square1=', square);
       let total = square.getAttribute('data');
 
       // if you put total !== 0, then the 0 will show up if the total is equals to 0.
