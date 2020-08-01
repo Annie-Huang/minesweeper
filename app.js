@@ -108,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // click on square actions
   function click(square) {
+    let currentId = square.id;
+
     if (isGameOver) return;
     if (square.classList.contains('checked') || square.classList.contains('flag')) return
 
@@ -124,9 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
         square.innerHTML = total;
         return;
       }
-
+      checkSquare(square, currentId);
     }
 
     square.classList.add('checked');
   }
+
+  // check neighboring squares once square is clicked.
+  function checkSquare(square, currentId) {
+    const isLeftEdge = (currentId % width === 0);
+    const isRightEdge = (currentId % width === width - 1);
+
+    // It's important to set Timeout as you want the recursion happens one after another.
+    setTimeout(() => {
+
+    }, 10);
+  }
+
 });
