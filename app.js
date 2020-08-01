@@ -95,7 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // RIGHT BOTTOM side is the bomb (ignore if it is the right column)
         // if (i<88 && !isRightEdge && squares[i+1+width].classList.contains('bomb'))
-        // I believe this is a bug, it should be i<=88
+        // I believe this is a bug,
+        // it should be i<=88
         if (i<=squares.length-width-2 && !isRightEdge && squares[i+1+width].classList.contains('bomb'))
           total++;
 
@@ -143,7 +144,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // It's important to set Timeout as you want the recursion happens one after another.
     setTimeout(() => {
+      if (currentId > 0 && !isLeftEdge) {
+        const newId = squares[parseInt(currentId)-1].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
 
+      // !!! OK, I am not going to care about the correctness of the comparision e.g. currentId > 9 from now too. Too much work rethinking of the logic
+      if (currentId > 9 && !isRightEdge) {
+        const newId = squares[parseInt(currentId)+1-width].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
+
+      if (currentId > 10) {
+        const newId = squares[parseInt(currentId)-width].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
+
+      if (currentId > 11 && !isLeftEdge) {
+        const newId = squares[parseInt(currentId)-1-width].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
+
+      if (currentId < 98 && !isRightEdge) {
+        const newId = squares[parseInt(currentId)+1].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
+
+      if (currentId <90 && !isLeftEdge) {
+        const newId = squares[parseInt(currentId)-1+width].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
+
+      // if (currentId < 89) {
+      if (currentId <= 89) {
+        const newId = squares[parseInt(currentId)+width].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
+
+      // if (currentId < 88 && !isRightEdge) {
+      if (currentId <= 88 && !isRightEdge) {
+        const newId = squares[parseInt(currentId)+1+width].id;
+        const newSquare = document.getElementsByName(newId);
+        click(newSquare);
+      }
 
     }, 10);
   }
